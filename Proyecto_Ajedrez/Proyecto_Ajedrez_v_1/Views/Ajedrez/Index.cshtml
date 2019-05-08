@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Proyecto_Ajedrez_v_1.Models.articulo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<br/>
+<br/>
+<h3>Listado de Noticias ...</h3>
+<br />
+
+<p>
+    @Html.ActionLink("Agregar Noticia", "CreateArticulo")
+</p>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Codigo")
+        </th>
+        <th>
+            @Html.DisplayName("Título")
+            @*@Html.DisplayNameFor(model => model.titulo)*@
+        </th>
+        @*<th>
+        @Html.DisplayNameFor(model => model.cuerpo)
+             </th>
+
+        *@
+        <th>
+            @Html.DisplayName("Autor")
+            @*@Html.DisplayNameFor(model => model.autor) *@
+        </th>
+        <th>
+            @Html.DisplayName("Estado")
+            @*@Html.DisplayNameFor(model => model.articulo_estado_id)*@
+        </th>
+        <th>
+            @Html.DisplayName("Fecha de Creación")
+            @*@Html.DisplayNameFor(model => model.fecha_creacion)  *@
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuario_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.titulo)
+        </td>
+       @* <td>
+        @Html.DisplayFor(modelItem => item.cuerpo)
+    </td>
+
+    *@
+        <td>
+            @Html.DisplayFor(modelItem => item.autor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.articulo_estado_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_creacion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

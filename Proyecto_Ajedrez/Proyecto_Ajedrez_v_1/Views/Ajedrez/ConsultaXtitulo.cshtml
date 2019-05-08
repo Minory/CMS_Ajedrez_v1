@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Proyecto_Ajedrez_v_1.Models.articulo>
+
+@{
+    ViewBag.Title = "ConsultaXtitulo";
+}
+
+
+<br />
+<br />
+<br />
+
+@using (Html.BeginForm("ConsultaXtitulo", "Ajedrez", FormMethod.Get))
+{
+    <fieldset>
+        @Html.Label("lblTitulo","Ingrese Título : ")
+        @Html.TextBox("nom")
+        <input type="submit" value="Buscar">
+    </fieldset>
+
+
+}
+
+<br />
+<h4>Resultados de busqueda  </h4>
+<br/>
+
+@*
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Usuario")
+            @*@Html.DisplayNameFor(model => model.usuario_id) *@
+        </th>
+        <th>
+            @Html.DisplayName("Título")
+            @*@Html.DisplayNameFor(model => model.titulo) *@
+        </th>
+        @*
+    <th>
+        @Html.DisplayName("Cuerpo")
+        @Html.DisplayNameFor(model => model.cuerpo)
+    </th>
+        *@
+        <th>
+            @Html.DisplayName("Autor")
+            @* @Html.DisplayNameFor(model => model.autor)  *@
+        </th>
+        <th>
+            @Html.DisplayName("Estado")
+            @* @Html.DisplayNameFor(model => model.articulo_estado_id) *@
+            </th>
+            <th>
+                @Html.DisplayName("Fecha de Creación")
+                @* @Html.DisplayNameFor(model => model.fecha_creacion) *@
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.usuario_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.titulo)
+            </td>
+
+            @*
+            <td>
+                @Html.DisplayFor(modelItem => item.cuerpo)
+            </td>
+            *@
+        <td>
+            @Html.DisplayFor(modelItem => item.autor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.articulo_estado_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_creacion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

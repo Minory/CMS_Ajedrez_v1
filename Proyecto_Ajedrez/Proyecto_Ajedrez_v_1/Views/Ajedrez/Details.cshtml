@@ -1,0 +1,75 @@
+﻿@model Proyecto_Ajedrez_v_1.Models.articulo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <br/>
+    <h4>Detalle de Noticia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Usuario ")
+            @*@Html.DisplayNameFor(model => model.usuario_id)*@
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.usuario_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Título ")
+            @*@Html.DisplayNameFor(model => model.titulo) *@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Cuerpo ")
+            @*@Html.DisplayNameFor(model => model.cuerpo) *@
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.cuerpo)  *@
+            @Html.Raw(Model.cuerpo)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Autor ")
+            @*@Html.DisplayNameFor(model => model.autor) *@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.autor)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Estado ")
+            @*@Html.DisplayNameFor(model => model.articulo_estado_id) *@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.articulo_estado_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Fecha de Creacion ")
+            @*@Html.DisplayNameFor(model => model.fecha_creacion) *@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_creacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
