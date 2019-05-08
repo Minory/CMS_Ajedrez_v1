@@ -31,7 +31,7 @@ namespace Proyecto_Ajedrez_v_1.Controllers
             {
                 return View(obj);
             }
-            //obj.usuario_id = 2;
+            obj.usuario_id = 2;
             db.articulo.Add(obj);
             db.SaveChanges();
             return RedirectToAction("Index");
