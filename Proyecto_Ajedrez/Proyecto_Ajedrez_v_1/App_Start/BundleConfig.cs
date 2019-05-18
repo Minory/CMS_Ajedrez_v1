@@ -10,7 +10,7 @@ namespace Proyecto_Ajedrez_v_1
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/moment.js" // se agrego por el datetimepicker 9/05/19
+                        "~/Scripts/moment-with-locales.min.js" // se agrego por el datetimepicker 9/05/19
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

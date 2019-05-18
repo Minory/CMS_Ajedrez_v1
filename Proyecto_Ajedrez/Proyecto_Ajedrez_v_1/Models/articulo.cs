@@ -11,6 +11,7 @@ namespace Proyecto_Ajedrez_v_1.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class articulo
     {
@@ -22,8 +23,16 @@ namespace Proyecto_Ajedrez_v_1.Models
     
         public int id { get; set; }
         public int usuario_id { get; set; }
+
+        [Required(AllowEmptyStrings =false, ErrorMessage ="Debe ingresar el título")]
+        [StringLength(100,MinimumLength =5)]
         public string titulo { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe redactar contenido de noticia")]
         public string cuerpo { get; set; }
+
+        [Required]
+        [StringLength(100, MinimumLength = 5,ErrorMessage = "Min de caracteres son 5")]
         public string autor { get; set; }
         public byte articulo_estado_id { get; set; }
         public System.DateTime fecha_creacion { get; set; }

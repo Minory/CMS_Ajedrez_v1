@@ -19,7 +19,7 @@
     <div class="form-horizontal">
         <h4>Panel de Noticias</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "Verificar datos", new { @class = "text-danger" })
 
         @*
     <div class="form-group">
@@ -97,9 +97,10 @@
 <script type="text/javascript">
     $(function () {
         $('#fecha_creacion').datetimepicker({
-            format: "YYYY/MM/DD"
+            format: "YYYY/MM/DD", locale:'es'
         }).on('dp.change', function (e) {
             $(this).data('DateTimePicker').hide();
         });
+        
     });
 </script>
