@@ -199,6 +199,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AjedrezController.cs" />
+    <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -226,6 +227,9 @@
     <Compile Include="Models\articulo_estado.cs">
       <DependentUpon>Ajedrez_Version1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\categoria.cs">
+      <DependentUpon>Ajedrez_Version1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\comentario.cs">
       <DependentUpon>Ajedrez_Version1.tt</DependentUpon>
     </Compile>
@@ -233,11 +237,20 @@
       <DependentUpon>Ajedrez_Version1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\listaventa.cs">
+      <DependentUpon>Ajedrez_Version1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Perfil.cs">
       <DependentUpon>Ajedrez_Version1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\producto.cs">
+      <DependentUpon>Ajedrez_Version1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\usuario.cs">
+      <DependentUpon>Ajedrez_Version1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\venta.cs">
       <DependentUpon>Ajedrez_Version1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -535,6 +548,8 @@
     <Content Include="Views\Ajedrez\Details.cshtml" />
     <Content Include="Views\Ajedrez\ConsultaXtitulo.cshtml" />
     <Content Include="Views\Home\NoticiaDetalle.cshtml" />
+    <Content Include="Views\Carrito\Index.cshtml" />
+    <Content Include="Views\Carrito\CreateProducto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

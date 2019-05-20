@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Ajedrez_v1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Ajedrez_v1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="articulo">
           <Key>
             <PropertyRef Name="id" />
@@ -24,6 +24,13 @@
           <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="detalle" Type="varchar" MaxLength="30" />
         </EntityType>
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="id_categoria" />
+          </Key>
+          <Property Name="id_categoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="desc_categoria" Type="varchar" MaxLength="60" Nullable="false" />
+        </EntityType>
         <EntityType Name="comentario">
           <Key>
             <PropertyRef Name="id" />
@@ -42,12 +49,34 @@
           <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="detalle" Type="varchar" MaxLength="30" />
         </EntityType>
+        <EntityType Name="listaventa">
+          <Key>
+            <PropertyRef Name="idlistaventa" />
+          </Key>
+          <Property Name="idlistaventa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idventa" Type="int" Nullable="false" />
+          <Property Name="idproducto" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="total" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="Perfil">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="producto">
+          <Key>
+            <PropertyRef Name="idproducto" />
+          </Key>
+          <Property Name="idproducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_categoria" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="descripcion" Type="text" />
+          <Property Name="image" Type="varchar" MaxLength="100" />
+          <Property Name="precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="fechaCreacion" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="usuario">
           <Key>
@@ -59,6 +88,16 @@
           <Property Name="apellido" Type="varchar" MaxLength="50" />
           <Property Name="email" Type="varchar" MaxLength="150" />
           <Property Name="fechaCreacion" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="venta">
+          <Key>
+            <PropertyRef Name="idventa" />
+          </Key>
+          <Property Name="idventa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="diaventa" Type="datetime" Nullable="false" />
+          <Property Name="subtotal" Type="float" Nullable="false" />
+          <Property Name="igv" Type="float" Nullable="false" />
+          <Property Name="Total" Type="float" Nullable="false" />
         </EntityType>
         <Association Name="FK_articulo_articulo_estado">
           <End Role="articulo_estado" Type="Self.articulo_estado" Multiplicity="1" />
@@ -120,6 +159,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_listaventa_producto">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="listaventa" Type="Self.listaventa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idproducto" />
+            </Principal>
+            <Dependent Role="listaventa">
+              <PropertyRef Name="idproducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_listaventa_venta">
+          <End Role="venta" Type="Self.venta" Multiplicity="1" />
+          <End Role="listaventa" Type="Self.listaventa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="venta">
+              <PropertyRef Name="idventa" />
+            </Principal>
+            <Dependent Role="listaventa">
+              <PropertyRef Name="idventa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_producto_categoria">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="id_categoria" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_usuario_Perfil">
           <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
           <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
@@ -135,10 +210,14 @@
         <EntityContainer Name="Ajedrez_v1ModelStoreContainer">
           <EntitySet Name="articulo" EntityType="Self.articulo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="articulo_estado" EntityType="Self.articulo_estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="comentario" EntityType="Self.comentario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="comentario_estado" EntityType="Self.comentario_estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="listaventa" EntityType="Self.listaventa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="producto" EntityType="Self.producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="venta" EntityType="Self.venta" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_articulo_articulo_estado" Association="Self.FK_articulo_articulo_estado">
             <End Role="articulo_estado" EntitySet="articulo_estado" />
             <End Role="articulo" EntitySet="articulo" />
@@ -159,13 +238,24 @@
             <End Role="usuario" EntitySet="usuario" />
             <End Role="comentario" EntitySet="comentario" />
           </AssociationSet>
+          <AssociationSet Name="FK_listaventa_producto" Association="Self.FK_listaventa_producto">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="listaventa" EntitySet="listaventa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_listaventa_venta" Association="Self.FK_listaventa_venta">
+            <End Role="venta" EntitySet="venta" />
+            <End Role="listaventa" EntitySet="listaventa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_producto_categoria" Association="Self.FK_producto_categoria">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
           <AssociationSet Name="FK_usuario_Perfil" Association="Self.FK_usuario_Perfil">
             <End Role="Perfil" EntitySet="Perfil" />
             <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Ajedrez_v1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -339,7 +429,104 @@
             <End Role="Perfil" EntitySet="Perfil" />
             <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
+          <EntitySet Name="categoria" EntityType="Ajedrez_v1Model.categoria" />
+          <EntitySet Name="listaventa" EntityType="Ajedrez_v1Model.listaventa" />
+          <EntitySet Name="producto" EntityType="Ajedrez_v1Model.producto" />
+          <EntitySet Name="venta" EntityType="Ajedrez_v1Model.venta" />
+          <AssociationSet Name="FK_producto_categoria" Association="Ajedrez_v1Model.FK_producto_categoria">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_listaventa_producto" Association="Ajedrez_v1Model.FK_listaventa_producto">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="listaventa" EntitySet="listaventa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_listaventa_venta" Association="Ajedrez_v1Model.FK_listaventa_venta">
+            <End Role="venta" EntitySet="venta" />
+            <End Role="listaventa" EntitySet="listaventa" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="id_categoria" />
+          </Key>
+          <Property Name="id_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="desc_categoria" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="producto" Relationship="Ajedrez_v1Model.FK_producto_categoria" FromRole="categoria" ToRole="producto" />
+        </EntityType>
+        <EntityType Name="listaventa">
+          <Key>
+            <PropertyRef Name="idlistaventa" />
+          </Key>
+          <Property Name="idlistaventa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idventa" Type="Int32" Nullable="false" />
+          <Property Name="idproducto" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="total" Type="Double" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Ajedrez_v1Model.FK_listaventa_producto" FromRole="listaventa" ToRole="producto" />
+          <NavigationProperty Name="venta" Relationship="Ajedrez_v1Model.FK_listaventa_venta" FromRole="listaventa" ToRole="venta" />
+        </EntityType>
+        <EntityType Name="producto">
+          <Key>
+            <PropertyRef Name="idproducto" />
+          </Key>
+          <Property Name="idproducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_categoria" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="fechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="categoria" Relationship="Ajedrez_v1Model.FK_producto_categoria" FromRole="producto" ToRole="categoria" />
+          <NavigationProperty Name="listaventa" Relationship="Ajedrez_v1Model.FK_listaventa_producto" FromRole="producto" ToRole="listaventa" />
+        </EntityType>
+        <EntityType Name="venta">
+          <Key>
+            <PropertyRef Name="idventa" />
+          </Key>
+          <Property Name="idventa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="diaventa" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="subtotal" Type="Double" Nullable="false" />
+          <Property Name="igv" Type="Double" Nullable="false" />
+          <Property Name="Total" Type="Double" Nullable="false" />
+          <NavigationProperty Name="listaventa" Relationship="Ajedrez_v1Model.FK_listaventa_venta" FromRole="venta" ToRole="listaventa" />
+        </EntityType>
+        <Association Name="FK_producto_categoria">
+          <End Type="Ajedrez_v1Model.categoria" Role="categoria" Multiplicity="1" />
+          <End Type="Ajedrez_v1Model.producto" Role="producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="id_categoria" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_listaventa_producto">
+          <End Type="Ajedrez_v1Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Ajedrez_v1Model.listaventa" Role="listaventa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idproducto" />
+            </Principal>
+            <Dependent Role="listaventa">
+              <PropertyRef Name="idproducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_listaventa_venta">
+          <End Type="Ajedrez_v1Model.venta" Role="venta" Multiplicity="1" />
+          <End Type="Ajedrez_v1Model.listaventa" Role="listaventa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="venta">
+              <PropertyRef Name="idventa" />
+            </Principal>
+            <Dependent Role="listaventa">
+              <PropertyRef Name="idventa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -404,6 +591,49 @@
                 <ScalarProperty Name="apellido" ColumnName="apellido" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categoria">
+            <EntityTypeMapping TypeName="Ajedrez_v1Model.categoria">
+              <MappingFragment StoreEntitySet="categoria">
+                <ScalarProperty Name="desc_categoria" ColumnName="desc_categoria" />
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="listaventa">
+            <EntityTypeMapping TypeName="Ajedrez_v1Model.listaventa">
+              <MappingFragment StoreEntitySet="listaventa">
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="idproducto" ColumnName="idproducto" />
+                <ScalarProperty Name="idventa" ColumnName="idventa" />
+                <ScalarProperty Name="idlistaventa" ColumnName="idlistaventa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="producto">
+            <EntityTypeMapping TypeName="Ajedrez_v1Model.producto">
+              <MappingFragment StoreEntitySet="producto">
+                <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+                <ScalarProperty Name="idproducto" ColumnName="idproducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="venta">
+            <EntityTypeMapping TypeName="Ajedrez_v1Model.venta">
+              <MappingFragment StoreEntitySet="venta">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="igv" ColumnName="igv" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="diaventa" ColumnName="diaventa" />
+                <ScalarProperty Name="idventa" ColumnName="idventa" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

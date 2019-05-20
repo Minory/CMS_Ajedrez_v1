@@ -12,25 +12,18 @@ namespace Proyecto_Ajedrez_v_1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class articulo
+    public partial class categoria
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public articulo()
+        public categoria()
         {
-            this.comentario = new HashSet<comentario>();
+            this.producto = new HashSet<producto>();
         }
     
-        public int id { get; set; }
-        public int usuario_id { get; set; }
-        public string titulo { get; set; }
-        public string cuerpo { get; set; }
-        public string autor { get; set; }
-        public byte articulo_estado_id { get; set; }
-        public System.DateTime fecha_creacion { get; set; }
+        public int id_categoria { get; set; }
+        public string desc_categoria { get; set; }
     
-        public virtual articulo_estado articulo_estado { get; set; }
-        public virtual usuario usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<comentario> comentario { get; set; }
+        public virtual ICollection<producto> producto { get; set; }
     }
 }

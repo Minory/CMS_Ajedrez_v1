@@ -31,5 +31,9 @@ namespace Proyecto_Ajedrez_v_1.Models
         public virtual DbSet<comentario_estado> comentario_estado { get; set; }
         public virtual DbSet<Perfil> Perfil { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
+        public virtual DbSet<categoria> categoria { get; set; }
+        public virtual DbSet<listaventa> listaventa { get; set; }
+        public virtual DbSet<producto> producto { get; set; }
+        public virtual DbSet<venta> venta { get; set; }
     }
 }

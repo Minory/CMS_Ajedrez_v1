@@ -17,6 +17,13 @@
         <AssociationConnector Association="Ajedrez_v1Model.FK_comentario_comentario_estado" ManuallyRouted="false" />
         <AssociationConnector Association="Ajedrez_v1Model.FK_comentario_usuario" ManuallyRouted="false" />
         <AssociationConnector Association="Ajedrez_v1Model.FK_usuario_Perfil" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Ajedrez_v1Model.categoria" Width="1.5" PointX="9.375" PointY="5.875" />
+        <EntityTypeShape EntityType="Ajedrez_v1Model.listaventa" Width="1.5" PointX="13.875" PointY="5.5" />
+        <EntityTypeShape EntityType="Ajedrez_v1Model.producto" Width="1.5" PointX="11.625" PointY="5.375" />
+        <EntityTypeShape EntityType="Ajedrez_v1Model.venta" Width="1.5" PointX="11.625" PointY="9.625" />
+        <AssociationConnector Association="Ajedrez_v1Model.FK_producto_categoria" />
+        <AssociationConnector Association="Ajedrez_v1Model.FK_listaventa_producto" />
+        <AssociationConnector Association="Ajedrez_v1Model.FK_listaventa_venta" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

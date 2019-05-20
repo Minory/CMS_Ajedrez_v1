@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Proyecto_Ajedrez_v_1.Models.producto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("CrearProducto","Producto")'">Agregar</button>
+    <br />
+    
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Codigo")
+            
+        </th>
+        <th>
+            @Html.DisplayName("Categoría")
+            
+        </th>
+        <th>
+            @Html.DisplayName("Nombre")
+            
+        </th>
+        <th>
+            @Html.DisplayName("Caracteristicas")
+            
+        </th>
+        <th>
+
+            @Html.DisplayNameFor(model => model.image)
+        </th>
+        <th>
+            @Html.DisplayName("Precio")
+            
+        </th>
+        <th>
+            @Html.DisplayName("Fecha registro")
+            
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.idproducto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_categoria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.image)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.precio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fechaCreacion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
