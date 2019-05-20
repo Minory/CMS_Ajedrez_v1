@@ -53,7 +53,8 @@
             @Html.DisplayFor(modelItem => item.idproducto)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.id_categoria)
+            @Html.DisplayFor(modelItem => item.categoria.desc_categoria)
+            @* aqui cambie  item.id_categoria por la linea que esta arriba para que salga el nombre de la categoria*@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.nombre)

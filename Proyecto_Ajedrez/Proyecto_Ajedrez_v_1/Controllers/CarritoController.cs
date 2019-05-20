@@ -20,6 +20,7 @@ namespace Proyecto_Ajedrez_v_1.Controllers
 
         public ActionResult CreateProducto()
         {
+            ViewBag.cate = new SelectList(db.categoria.ToList(), "id_categoria", "desc_categoria");
             return View(new producto());
         }
 
@@ -29,6 +30,7 @@ namespace Proyecto_Ajedrez_v_1.Controllers
         {
             if (!ModelState.IsValid)
             {
+                
                 return View(obj);
             }
             obj.fechaCreacion=DateTime.Now;
@@ -39,7 +41,6 @@ namespace Proyecto_Ajedrez_v_1.Controllers
 
         public ActionResult ListarProductos()
         {
-
             return View(db.producto.ToList());
         }
 
