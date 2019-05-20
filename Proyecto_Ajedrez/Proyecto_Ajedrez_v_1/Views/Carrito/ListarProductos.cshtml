@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Proyecto_Ajedrez_v_1.Models.producto>
+
+@{
+    ViewBag.Title = "ListarProductos";
+}
+
+
+
+<p>
+    <br />
+    <br />
+    <h2>Productos</h2>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="container">
+
+    <div class="row">
+
+
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">@item.nombre</div>
+                    <div class="panel-body">
+
+                        <img class="img-responsive" src="@item.image" />
+
+                       <p>@item.descripcion</p> 
+                        <h3>@item.precio</h3>
+                        
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+
+

@@ -11,7 +11,6 @@ namespace Proyecto_Ajedrez_v_1.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class producto
     {
@@ -26,8 +25,6 @@ namespace Proyecto_Ajedrez_v_1.Models
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public string image { get; set; }
-
-        [DataType(DataType.Currency)]
         public decimal precio { get; set; }
         public System.DateTime fechaCreacion { get; set; }
     

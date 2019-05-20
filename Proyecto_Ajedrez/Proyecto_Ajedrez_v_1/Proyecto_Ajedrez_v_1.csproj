@@ -550,6 +550,7 @@
     <Content Include="Views\Home\NoticiaDetalle.cshtml" />
     <Content Include="Views\Carrito\Index.cshtml" />
     <Content Include="Views\Carrito\CreateProducto.cshtml" />
+    <Content Include="Views\Carrito\ListarProductos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

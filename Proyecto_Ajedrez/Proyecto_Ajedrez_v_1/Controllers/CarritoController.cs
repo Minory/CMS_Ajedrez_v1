@@ -37,6 +37,12 @@ namespace Proyecto_Ajedrez_v_1.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult ListarProductos()
+        {
+
+            return View(db.producto.ToList());
+        }
+
 
     }
 }
