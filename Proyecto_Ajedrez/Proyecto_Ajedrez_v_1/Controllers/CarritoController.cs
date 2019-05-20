@@ -39,9 +39,20 @@ namespace Proyecto_Ajedrez_v_1.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult ListarProductos()
+        public ActionResult ListarProductos(int? id=9)
         {
-            return View(db.producto.ToList());
+
+            ViewBag.cate = new SelectList(db.categoria.ToList(), "id_categoria", "desc_categoria", id);
+            if (id==9)
+            {
+                return View(db.producto.ToList());
+            }
+
+            else
+            {
+                return View(db.producto.Where(p => p.id_categoria==id).ToList());
+            }
+            
         }
 
 

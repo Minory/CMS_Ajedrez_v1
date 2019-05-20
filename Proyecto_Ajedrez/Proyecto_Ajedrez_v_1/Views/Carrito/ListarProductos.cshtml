@@ -1,8 +1,25 @@
 ﻿@model IEnumerable<Proyecto_Ajedrez_v_1.Models.producto>
 
 @{
-    ViewBag.Title = "ListarProductos";
+    ViewBag.Title = "Listado de Producto";
+    var cat = (SelectList)ViewBag.cate;
+
 }
+
+<br />
+<br />
+<br />
+
+@using (Html.BeginForm())
+{
+    <strong> Categorías </strong>
+    @Html.DropDownList("id",cat, new { @class = "btn btn-default" }) 
+    @*id hace referencia a el id de la categoria que es nombrado en el controlador*@
+    <input type="submit" class="btn btn-primary" value="Buscar"/>
+
+
+}
+
 
 
 
