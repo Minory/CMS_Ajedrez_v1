@@ -553,6 +553,7 @@
     <Content Include="Views\Carrito\CreateProducto.cshtml" />
     <Content Include="Views\Carrito\ListarProductos.cshtml" />
     <Content Include="Views\Carrito\AgregarCarrito.cshtml" />
+    <Content Include="Views\Carrito\FinalizaCompra.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

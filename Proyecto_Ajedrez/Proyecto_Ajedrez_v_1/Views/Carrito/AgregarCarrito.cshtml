@@ -5,10 +5,10 @@
 
 <h2>Carrito</h2>
 
-<table>
+<table class="table">
     <thead>
         <trt> 
-                <th>ID</th>
+                <th>Codigo</th>
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Cantidad</th>
@@ -31,8 +31,8 @@
                     <td>@String.Format("{0:C}", item.Producto.precio)</td>
                     <td>@item.Cantidad</td>
                     <td>@String.Format("{0:C}", (item.Cantidad * item.Producto.precio))</td>
-                    @*<td>@Html.ActionLink("Eliminar", "Delete", "Carrito", new { Id = item.Producto.idproducto }, null)</td>
-                    *@
+                    <td>@Html.ActionLink("Eliminar", "Delete", "Carrito", new { Id = item.Producto.idproducto }, null)</td>
+                    
                          </tr>
             }
         }
@@ -44,7 +44,7 @@
         </tr>
     </tfoot>
 </table>
-@Html.ActionLink("Seguir Comprando", "ListarProducto", "Carrito", null, null) | @Html.ActionLink("Terminar Compra", "FinalizaCompra", "Carrito", null, null)
+@Html.ActionLink("Seguir Comprando", "ListarProductos", "Carrito", null, null) | @Html.ActionLink("Terminar Compra", "FinalizaCompra", "Carrito", null, null)
 
 
 

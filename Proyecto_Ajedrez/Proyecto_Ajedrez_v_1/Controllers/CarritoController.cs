@@ -66,12 +66,73 @@ namespace Proyecto_Ajedrez_v_1.Controllers
             else
             {
                 List<CarritoItem> compras = (List<CarritoItem>)Session["carrito"];
-                compras.Add(new CarritoItem(db.producto.Find(id), 1));
-                Session["carrito"] = compras;
+                int IndexExistente = getIndex(id);
+                if (IndexExistente == -1)
+                {
+                    compras.Add(new CarritoItem(db.producto.Find(id), 1));
+                }
+
+                else
+                {
+                    compras[IndexExistente].Cantidad++;
+                    Session["carrito"] = compras;
+                }
+                
             }
             return View();
         }
 
 
+        public ActionResult Delete(int id)
+        {
+            List<CarritoItem> compras = (List<CarritoItem>)Session["carrito"];
+            compras.RemoveAt(getIndex(id));
+            return View("AgregarCarrito");
+        }
+
+        public ActionResult FinalizaCompra()
+        {
+            List<CarritoItem> compras = (List<CarritoItem>)Session["carrito"];
+            if (compras !=null && compras.Count>0)
+            {
+                venta nuevaVenta = new venta();
+                nuevaVenta.diaventa = DateTime.Now;
+                nuevaVenta.subtotal = (double)compras.Sum(x => x.Producto.precio * x.Cantidad);//aqui agregué conversion a double xq
+                //subtotal , igv y los otros datos estan en float que aqui en .Net los lee como double.
+                nuevaVenta.igv = nuevaVenta.subtotal * 0.18;
+                nuevaVenta.Total = nuevaVenta.subtotal + nuevaVenta.igv;
+
+                nuevaVenta.listaventa = (from producto in compras
+                                         select new listaventa
+                                         {
+                                             idproducto = producto.Producto.idproducto,
+                                             Cantidad = producto.Cantidad,
+                                             total = producto.Cantidad * (double)producto.Producto.precio
+                                         }).ToList();
+                db.venta.Add(nuevaVenta);
+                db.SaveChanges();
+                Session["carrito"] = new List<CarritoItem>();
+
+            }
+            return View();
+        }
+
+
+
+
+
+        private int getIndex(int id)
+        {
+            List<CarritoItem> compras = (List<CarritoItem>)Session["carrito"];
+            for (int i = 0; i < compras.Count; i++)
+            {
+                if (compras[i].Producto.idproducto== id)
+                    return i;
+            }
+
+            return -1;
+        }
+
     }
+
 }
