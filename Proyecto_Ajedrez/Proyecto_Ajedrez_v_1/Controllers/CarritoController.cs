@@ -55,6 +55,23 @@ namespace Proyecto_Ajedrez_v_1.Controllers
             
         }
 
+        public ActionResult AgregarCarrito(int id)
+        {
+            if (Session["carrito"] == null)
+            {
+                List<CarritoItem> compras = new List<CarritoItem>();
+                compras.Add(new CarritoItem(db.producto.Find(id), 1));
+                Session["carrito"] = compras;
+            }
+            else
+            {
+                List<CarritoItem> compras = (List<CarritoItem>)Session["carrito"];
+                compras.Add(new CarritoItem(db.producto.Find(id), 1));
+                Session["carrito"] = compras;
+            }
+            return View();
+        }
+
 
     }
 }

@@ -227,6 +227,7 @@
     <Compile Include="Models\articulo_estado.cs">
       <DependentUpon>Ajedrez_Version1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CarritoItem.cs" />
     <Compile Include="Models\categoria.cs">
       <DependentUpon>Ajedrez_Version1.tt</DependentUpon>
     </Compile>
@@ -551,6 +552,7 @@
     <Content Include="Views\Carrito\Index.cshtml" />
     <Content Include="Views\Carrito\CreateProducto.cshtml" />
     <Content Include="Views\Carrito\ListarProductos.cshtml" />
+    <Content Include="Views\Carrito\AgregarCarrito.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
