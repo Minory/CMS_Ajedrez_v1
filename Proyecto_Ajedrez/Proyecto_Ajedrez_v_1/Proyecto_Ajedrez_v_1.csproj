@@ -202,6 +202,7 @@
     <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -561,6 +562,9 @@
     <Content Include="Views\Carrito\DeleteCategoria.cshtml" />
     <Content Include="Views\Carrito\EditProducto.cshtml" />
     <Content Include="Views\Carrito\DetailsProducto.cshtml" />
+    <Content Include="Views\Carrito\DeleteProducto.cshtml" />
+    <Content Include="Views\Venta\Index.cshtml" />
+    <Content Include="Views\Venta\Detalles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

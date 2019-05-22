@@ -155,7 +155,22 @@ namespace Proyecto_Ajedrez_v_1.Controllers
             producto pro = db.producto.Find(id);
             return View(pro);
         }
-
+        //Elimninar
+        public ActionResult DeleteProducto(int id)
+        {
+            List<producto> lstMarca = db.producto.ToList();
+            producto ObjMarca = lstMarca.Where(p => p.idproducto == id).FirstOrDefault();
+            return View(ObjMarca);
+        }
+        [HttpPost, ActionName("DeleteProducto")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed2(int id)
+        {
+            producto obj = db.producto.Find(id);
+            db.producto.Remove(obj);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
 
 

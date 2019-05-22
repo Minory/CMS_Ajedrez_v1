@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Detalles";
+}
+
+@model Proyecto_Ajedrez_v_1.Models.venta
+<br />
+<br />  
+<h3>Detalle de Pedido</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Dia de la Venta</th>
+            <td>@Model.diaventa</td>
+        </tr>
+        <tr>
+            <th>SubTotal</th>
+            <td>@String.Format("{0:C}", Model.subtotal)</td>
+        </tr>
+        <tr>
+            <th>IVA</th>
+            <td>@String.Format("{0:C}", Model.igv)</td>
+        </tr>
+        <tr>
+            <th>Total</th>
+            <td>@String.Format("{0:C}", Model.Total)</td>
+        </tr>
+    </thead>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.listaventa != null)
+        {
+            foreach (var lista in Model.listaventa)
+            {
+                <tr>
+                    <td>@lista.producto.nombre</td>
+                    <td>@String.Format("{0:C}", lista.producto.precio)</td>
+                    <td>@lista.Cantidad</td>
+                    <td>@String.Format("{0:C}", lista.total)</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<p>
+    @Html.ActionLink("Regresar", "Index")
+</p>
+
