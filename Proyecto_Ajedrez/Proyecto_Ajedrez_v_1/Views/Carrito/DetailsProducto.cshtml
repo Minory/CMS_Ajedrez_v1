@@ -1,0 +1,76 @@
+﻿@model Proyecto_Ajedrez_v_1.Models.producto
+
+@{
+    ViewBag.Title = "DetailsProducto";
+}
+
+<h2>DetailsProducto</h2>
+
+<div>
+    <h4>producto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idproducto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idproducto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_categoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_categoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.descripcion)
+            @* @Html.DisplayFor(model => model.descripcion) *@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.image)
+        </dt>
+
+        <dd>
+            <img class="img-responsive" style="width:300px; height:300px;" src="@Url.Content(@Model.image)" />
+            @* @Html.DisplayFor(model => model.image)  *@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaCreacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaCreacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "EditProducto", new { id = Model.idproducto }) |
+    @Html.ActionLink("Regresar a listado", "Index")
+</p>

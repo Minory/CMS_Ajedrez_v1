@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Net;
 using Proyecto_Ajedrez_v_1.Models;
 
 
@@ -17,7 +18,88 @@ namespace Proyecto_Ajedrez_v_1.Controllers
         {
             return View(db.producto.ToList());
         }
+        //*********************************************CRUD CATEGORIA*******************************************
+        //aqui crud de CATEGORIA
+        public ActionResult ListaCategorias()
+        {
+            return View(db.categoria.ToList());
+        }
 
+        public ActionResult CreateCategoria()
+        {
+            return View(new categoria());
+        }
+
+        [HttpPost]
+        //[ValidateInput(false)]
+        public ActionResult CreateCategoria(categoria obj)
+        {
+            if (!ModelState.IsValid)
+            {
+
+                return View(obj);
+            }
+            
+            db.categoria.Add(obj);
+            db.SaveChanges();
+            return RedirectToAction("ListaCategorias");
+        }
+
+        public ActionResult DetailsCategoria(int? id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            categoria cate = db.categoria.Find(id);
+            return View(cate);
+
+        }
+
+
+        public ActionResult EditCategoria(int id)
+        {
+            List<categoria> lstMarca = db.categoria.ToList();
+            categoria ObjMarca = lstMarca.Where(p => p.id_categoria == id).FirstOrDefault();
+
+            return View(ObjMarca);
+        }
+
+        [HttpPost]
+        public ActionResult EditCategoria(categoria obj)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(obj);
+            }
+            db.Entry(obj).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("ListaCategorias");
+        }
+
+        public ActionResult DeleteCategoria(int id)
+        {
+            List<categoria> lstMarca = db.categoria.ToList();
+            categoria ObjMarca = lstMarca.Where(p => p.id_categoria == id).FirstOrDefault();
+            return View(ObjMarca);
+        }
+        [HttpPost, ActionName("DeleteCategoria")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            categoria obj = db.categoria.Find(id);
+            db.categoria.Remove(obj);
+            db.SaveChanges();
+            return RedirectToAction("ListaCategorias");
+        }
+
+
+        /// <summary>
+        /// aqui va todo de PRODUCTO 
+        /// </summary>
+        /// <returns></returns>
+        //*****************************************CRUD DE PRODUCTO***********************************************
         public ActionResult CreateProducto()
         {
             ViewBag.cate = new SelectList(db.categoria.ToList(), "id_categoria", "desc_categoria");
@@ -39,6 +121,46 @@ namespace Proyecto_Ajedrez_v_1.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public ActionResult EditProducto(int id)
+        {
+            ViewBag.cate = new SelectList(db.categoria.ToList(), "id_categoria", "desc_categoria");
+            List<producto> lstprod = db.producto.ToList();
+            producto Obj = lstprod.Where(p => p.idproducto == id).FirstOrDefault();
+
+            return View(Obj);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult EditProducto(producto obj)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(obj);
+            }
+            obj.fechaCreacion = DateTime.Now;
+            db.Entry(obj).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        //detalle
+        public ActionResult DetailsProducto(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            producto pro = db.producto.Find(id);
+            return View(pro);
+        }
+
+
+
+
+        /*finaliza CRUD DE PRODUCTOS Y CATEGORIAS-----*/
+
         public ActionResult ListarProductos(int? id=9)
         {
 
@@ -54,6 +176,11 @@ namespace Proyecto_Ajedrez_v_1.Controllers
             }
             
         }
+
+
+
+
+
 
         public ActionResult AgregarCarrito(int id)
         {

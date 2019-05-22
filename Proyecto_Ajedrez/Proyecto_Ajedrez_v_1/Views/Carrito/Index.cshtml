@@ -28,14 +28,17 @@
             @Html.DisplayName("Nombre")
             
         </th>
-        <th>
-            @Html.DisplayName("Descripcion")
-            
-        </th>
+        @*
+    <th>
+        @Html.DisplayName("Descripcion")
+
+    </th>
+
         <th>
             @Html.DisplayName("Imagen")
-            
+
         </th>
+        *@
         <th>
             @Html.DisplayName("Precio")
             
@@ -59,12 +62,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.nombre)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
+        @*
+    <td>
+        @Html.DisplayFor(modelItem => item.descripcion)
+    </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.image)
         </td>
+        *@
         <td>
             @Html.DisplayFor(modelItem => item.precio)
         </td>
@@ -72,9 +78,9 @@
             @Html.DisplayFor(modelItem => item.fechaCreacion)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Editar", "EditProducto", new { id=item.idproducto }) |
+            @Html.ActionLink("Detalles", "DetailsProducto", new { id = item.idproducto }) |
+            @Html.ActionLink("Eliminar", "DeleteProducto", new { id = item.idproducto  })
         </td>
     </tr>
 }

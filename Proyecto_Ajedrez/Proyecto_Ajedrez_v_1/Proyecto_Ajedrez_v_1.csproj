@@ -554,6 +554,13 @@
     <Content Include="Views\Carrito\ListarProductos.cshtml" />
     <Content Include="Views\Carrito\AgregarCarrito.cshtml" />
     <Content Include="Views\Carrito\FinalizaCompra.cshtml" />
+    <Content Include="Views\Carrito\ListaCategorias.cshtml" />
+    <Content Include="Views\Carrito\CreateCategoria.cshtml" />
+    <Content Include="Views\Carrito\DetailsCategoria.cshtml" />
+    <Content Include="Views\Carrito\EditCategoria.cshtml" />
+    <Content Include="Views\Carrito\DeleteCategoria.cshtml" />
+    <Content Include="Views\Carrito\EditProducto.cshtml" />
+    <Content Include="Views\Carrito\DetailsProducto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

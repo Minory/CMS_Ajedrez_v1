@@ -1,0 +1,34 @@
+﻿@model Proyecto_Ajedrez_v_1.Models.categoria
+
+@{
+    ViewBag.Title = "DetailsCategoria";
+}
+
+<h2>DetailsCategoria</h2>
+
+<div>
+    <h4>categoria</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_categoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_categoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.desc_categoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.desc_categoria)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_categoria}) |
+    @Html.ActionLink("Regresar a la lista", "ListaCategorias")
+</p>
