@@ -192,10 +192,7 @@ namespace Proyecto_Ajedrez_v_1.Controllers
             
         }
 
-
-
-
-
+        
 
         public ActionResult AgregarCarrito(int id)
         {
@@ -223,6 +220,90 @@ namespace Proyecto_Ajedrez_v_1.Controllers
             }
             return View();
         }
+
+        public ActionResult AgregarCarritoDetalle(int? Id)
+        {
+            producto p = db.producto.Where(x => x.idproducto == Id).SingleOrDefault();
+            return View(p);
+
+        }
+
+        //List<cart> li = new List<cart>();
+        List<CarritoItem> compras = new List<CarritoItem>();
+
+        [HttpPost]
+        public ActionResult AgregarCarritoDetalle(producto pi, string qty, int? Id)
+        {
+            producto p = db.producto.Where(x => x.idproducto == Id).SingleOrDefault();
+
+           // CarritoItem c = new CarritoItem();
+            
+           // c.Producto.idproducto = p.idproducto;
+            //c.Producto.precio = p.precio;
+            //c.Cantidad = Convert.ToInt32(qty);
+            //c.bill = c.price * c.qty;
+           // c.productname = p.pro_name;
+            if (TempData["carrito"] == null)
+            {
+                //compras.Add(c);
+                compras.Add(new CarritoItem(db.producto.Find(p.idproducto), Convert.ToInt32(qty)));
+                //TempData["cart"] = li;
+                TempData["carrito"]=compras;
+            }
+            else
+            {
+                List<CarritoItem> li2 = TempData["carrito"] as List<CarritoItem>;
+                li2.Add(new CarritoItem(db.producto.Find(p.idproducto), Convert.ToInt32(qty)));
+                TempData["carrito"] = li2;
+            }
+
+            TempData.Keep();
+
+
+
+            return RedirectToAction("ListarProductos");
+        }
+
+
+        public ActionResult checkout()
+        {
+            TempData.Keep();
+
+
+            return View();
+        }
+
+
+        /*
+    [HttpPost]
+    public JsonResult AgregarCarrito(int id, int cant)
+    {
+        if (Session["carrito"] == null)
+        {
+            List<CarritoItem> compras = new List<CarritoItem>();
+            compras.Add(new CarritoItem(db.producto.Find(id), cant));
+            Session["carrito"] = compras;
+        }
+        else
+        {
+            List<CarritoItem> compras = (List<CarritoItem>)Session["carrito"];
+            int IndexExistente = getIndex(id);
+            if (IndexExistente == -1)
+                compras.Add(new CarritoItem(db.producto.Find(id), cant));
+            else
+                compras[IndexExistente].Cantidad += cant;
+            Session["carrito"] = compras;
+        }
+        return Json(new { Response = true }, JsonRequestBehavior.AllowGet);
+    }
+    [HttpGet]
+    public ActionResult AgregarCarrito()
+    {
+        return View();
+    }
+
+
+    */
 
 
         public ActionResult Delete(int id)

@@ -565,6 +565,8 @@
     <Content Include="Views\Carrito\DeleteProducto.cshtml" />
     <Content Include="Views\Venta\Index.cshtml" />
     <Content Include="Views\Venta\Detalles.cshtml" />
+    <Content Include="Views\Carrito\AgregarCarritoDetalle.cshtml" />
+    <Content Include="Views\Carrito\checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
