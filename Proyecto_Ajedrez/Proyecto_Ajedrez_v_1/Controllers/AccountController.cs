@@ -12,6 +12,7 @@ using Proyecto_Ajedrez_v_1.Models;
 
 namespace Proyecto_Ajedrez_v_1.Controllers
 {
+    //el unico lugar donde puedo conectar xD
     [Authorize]
     public class AccountController : Controller
     {
