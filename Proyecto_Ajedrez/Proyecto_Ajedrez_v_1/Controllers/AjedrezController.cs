@@ -50,6 +50,7 @@ namespace Proyecto_Ajedrez_v_1.Controllers
 
         public ActionResult ConsultaXtitulo(string nom) {
 
+            //db.articulo.ToList();
           
             return View(db.articulo.Where(p=>p.titulo.Equals(nom)).ToList());
         }

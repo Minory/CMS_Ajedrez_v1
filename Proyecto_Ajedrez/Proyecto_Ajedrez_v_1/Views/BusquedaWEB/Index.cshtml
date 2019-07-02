@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<h1>Scrap Emails and Telephone Numbers From A URL</h1>
+<h2><a href="https://www.codeproject.com/Articles/1167409/Ways-To-Use-jQuery-Load-in-Your-Website">Read the tutorial on CODEPROJECT» </a><button id="reset">Reset »</button></h2>
+<h3>Important Link - <a href="http://www.yogihosting.com/web-scraper/">jQuery AJAX</a></h3>
+<div id="viewContent">
+    <h4>Enter to URL to Scrap Emails and Telephone nos</h4>
+    <div id="message"></div>
+    <input id="urlInput" type="text" placeholder="Enter URL" />
+    <button id="submit">Submit</button>
+  
+    <div id="twoColumn">
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#reset").click(function (e) {
+            $("#urlInput").val("")
+            $("#twoColumn > div").html("")
+        });
+
+        $("#submit").click(function (e) {
+            var validate = Validate();
+            $("#message").html(validate);
+
+            if (validate.length == 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/BusquedaWEB/GetUrlSource",
+                    contentType: "application/json; charset=utf-8",
+                    data: '{"url":"' + $("#urlInput").val() + '"}',
+                    dataType: "html",
+                    success: function (result, status, xhr) {
+                        GetUrlTelePhone(result);
+                    },
+                    error: function (xhr, status, error) {
+                        $("#message").html("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                    }
+                });
+            }
+        });
+
+        function GetUrlTelePhone(html) {
+            //emails = html.match(/([a-zA-Z0-9._-]+@@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+            emails = html.
+            emails = emails != null ? $.uniqueSort(emails) : "";
+            var email = $("<p><u>Emails Found:-</u></p>");
+            var email = $("<p><u>Titulo:-</u></p>");
+            for (var i = 0, il = emails.length; i < il; i++)
+                email.append("<p>" + (i + 1) + ". " + emails[i] + "</p>");
+            $("#twoColumn > div").first().html(email);
+
+            tels = html.match(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/);
+            tels = tels != null ? $.uniqueSort(tels) : "";
+            tels = $.uniqueSort(tels);
+            var tel = $("<p><u>Telephones Found:-</u></p>");
+            for (var i = 0, il = tels.length; i < il; i++) {
+                if (tels.length > 4)
+                    tel.append("<p>" + (i + 1) + ". " + tels[i] + "</p>");
+            }
+            $("#twoColumn > div:nth-child(2)").html(tel);
+        }
+
+        $(document).ajaxStart(function () {
+            $("img").show();
+        });
+
+        $(document).ajaxStop(function () {
+            $("img").hide();
+        });
+
+
+        function Validate() {
+            var errorMessage = "";
+            if ($("#urlInput").val() == "") {
+                errorMessage += "► Enter URL<br/>";
+            }
+            else if (!(isUrlValid($("#urlInput").val()))) {
+                errorMessage += "► Invalid URL<br/>";
+            }
+
+            return errorMessage;
+        }
+
+        function isUrlValid(url) {
+            var urlregex = new RegExp(
+          "^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
+            return urlregex.test(url);
+        }
+    });
+</script>
