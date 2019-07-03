@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Proyecto_Ajedrez_v_1.Models.EntryModel>
+
+<br />
+<br />
+
+@{
+    ViewBag.Title = "Consultaweb1";
+}
+<br />
+<br />
+
+
+
+@*
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+*@
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Autor)
+        </th>
+        <th>
+
+            @Html.DisplayNameFor(model => model.Imagen)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Autor)
+            </td>
+            <td>
+                @*
+                    @Html.DisplayFor(modelItem => item.Imagen)
+                *@
+                <img class="img-responsive" style="width:200px; height:100px;" src="@Url.Content(@item.Imagen)" />
+
+            </td>
+            <td>
+                @Html.ActionLink("Ver", "Edit", new { /* id=item.PrimaryKey */ })
+
+            </td>
+        </tr>
+    }
+
+</table>
